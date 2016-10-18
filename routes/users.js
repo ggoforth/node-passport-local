@@ -12,11 +12,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', (req, res, next) => {
+  console.log('here');
   res.render('login'); 
 });
 
+router.get('/logout', (req, res, next) => {
+  req.session.destroy();
+  res.redirect('/users/login');
+});
+
 router.post('/login', passport.authenticate('local'), (req, res, next) => {
-  res.json(req.session.passport.user);   
+  res.redirect('/home');
 });
 
 router.get('/details', (req, res, next) => {
@@ -29,7 +35,6 @@ router.get('/register', (req, res, next) => {
 
 router.post('/register', (req, res, next) => {
   let user = new User(req.body);
-  
   user.save()
     .then(() => res.redirect('/users/login'));
 });

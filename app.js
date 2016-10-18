@@ -21,6 +21,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var home = require('./routes/home');
 var comparePassword = Promise.promisify(require('bcrypt').compare);
 var app = express();
 
@@ -80,6 +81,7 @@ passport.deserializeUser(function(user, done) {
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/home', home);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
