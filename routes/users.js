@@ -3,7 +3,8 @@
 var express = require('express');
 var router = express.Router(); 
 let mongoose = require('mongoose'),
-  User = mongoose.model('User');
+  User = mongoose.model('User'),
+  passport = require('passport');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -14,8 +15,12 @@ router.get('/login', (req, res, next) => {
   res.render('login'); 
 });
 
-router.post('/login', (req, res, next) => {
-  res.json(req.body);   
+router.post('/login', passport.authenticate('local'), (req, res, next) => {
+  res.json(req.session.passport.user);   
+});
+
+router.get('/details', (req, res, next) => {
+  res.json(req.session.passport.user);
 });
 
 router.get('/register', (req, res, next) => {

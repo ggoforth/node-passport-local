@@ -2,7 +2,8 @@
 
 const mongoose = require('mongoose'),
   Promise = require('bluebird'),
-  bcrypt = Promise.promisifyAll(require('bcrypt'));
+  bcrypt = Promise.promisifyAll(require('bcrypt')),
+  _ = require('lodash');
 
 const UserSchema = new mongoose.Schema({
   name: String,
@@ -28,5 +29,10 @@ UserSchema.pre('save', function (next) {
       .catch(next);
   }
 });
+
+UserSchema.methods.toJSON = function() {
+  let user = _.omit(this.toObject(), ['password', '__v']);
+  return user;
+};
 
 mongoose.model('User', UserSchema);
