@@ -10,6 +10,10 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/login', (req, res, next) => {
+  res.render('login'); 
+});
+
 router.post('/login', (req, res, next) => {
   res.json(req.body);   
 });
@@ -19,13 +23,10 @@ router.get('/register', (req, res, next) => {
 });
 
 router.post('/register', (req, res, next) => {
-  //create a new instance of a user model
   let user = new User(req.body);
   
   user.save()
-    .then(() => {
-      res.json(user); 
-    });
+    .then(() => res.redirect('/users/login'));
 });
 
 module.exports = router;
