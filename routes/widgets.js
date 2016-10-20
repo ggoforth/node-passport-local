@@ -42,7 +42,20 @@ router.get('/:widgetId/edit', (req, res, next) => {
 
 //edit widget
 router.put('/:widgetId', (req, res, next) => {
-  res.send(req.params.widgetId); 
+  Widget.findById(req.params.widgetId)
+    .then(widget => {
+      if (!widget) {
+        return next(new Error('Widget not found')); 
+      }
+      
+      Object.assign(widget, req.body);
+      widget.save()
+        .then(() => {
+          res.redirect('/widgets'); 
+        })
+        .catch(next);
+    })
+    .catch(next);
 });
 
 //delete widget
