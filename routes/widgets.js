@@ -23,6 +23,15 @@ router.get('/create', function(req, res, next) {
 });
 
 //create widget
+router.post('/', function(req, res, next) {
+  //handle posting of a widget
+  let widget = new Widget(req.body);
+  widget.save()
+    .then(() => {
+      res.redirect('/widgets'); 
+    });
+});
+
 
 //edit widget
 
