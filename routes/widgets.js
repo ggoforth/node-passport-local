@@ -29,7 +29,8 @@ router.post('/', function(req, res, next) {
   widget.save()
     .then(() => {
       res.redirect('/widgets'); 
-    });
+    })
+    .catch(next);
 });
 
 //show a widget form for updating
