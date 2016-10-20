@@ -32,8 +32,18 @@ router.post('/', function(req, res, next) {
     });
 });
 
+//show a widget form for updating
+router.get('/:widgetId/edit', (req, res, next) => {
+  Widget.findById(req.params.widgetId) 
+    .then(widget => {
+      res.render('widgets/edit', {widget}); 
+    });
+});
 
 //edit widget
+router.put('/:widgetId', (req, res, next) => {
+  res.send(req.params.widgetId); 
+});
 
 //delete widget
 
