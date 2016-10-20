@@ -3,10 +3,34 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <%= widgets %>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Prongs</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% for(var i = 0; i < widgets.length; i++) {  %>
+        <tr>
+          <td><%= widgets[i].name %></td>
+          <td><%= widgets[i].price %></td>
+          <td><%= widgets[i].prongs %></td>
+          <td>
+            <a href="/widgets/<%= widgets[i]._id %>/edit">Edit</a>
+          </td>
+        </tr>
+      <% } %>
+      <tr></tr>
+      </tbody>
+    </table>
   </body>
 </html>
