@@ -59,5 +59,11 @@ router.put('/:widgetId', (req, res, next) => {
 });
 
 //delete widget
+router.delete('/:widgetId', (req, res, next) => {
+  Widget.remove({_id: req.params.widgetId})
+    .then(() => {
+      res.redirect('/widgets'); 
+    });
+});
 
 module.exports = router;

@@ -26,6 +26,9 @@
           <td><%= widgets[i].prongs %></td>
           <td>
             <a href="/widgets/<%= widgets[i]._id %>/edit">Edit</a>
+            <form action="/widgets/<%= widgets[i]._id %>?_method=delete" method="POST">
+              <button class="btn btn-link">Delete</button>
+            </form>
           </td>
         </tr>
       <% } %>
