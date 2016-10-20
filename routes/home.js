@@ -1,5 +1,9 @@
-var express = require('express');
-var router = express.Router();
+'use strict';
+
+const express = require('express'),
+  router = express.Router(),
+  mongoose = require('mongoose'),
+  Widget = mongoose.model('Widget');
 
 router.use(function(req, res, next) {
   if (!req.session || !req.session.passport || !req.session.passport.user) {
@@ -12,7 +16,16 @@ router.use(function(req, res, next) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  Widget.find({})
+    .then(widgets => {
+      res.render('index', {
+        title: 'Express' , 
+        widgets
+      });
+    })
+    .catch(next);
 });
+
+
 
 module.exports = router;

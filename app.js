@@ -9,6 +9,7 @@ mongoose.Promise = Promise;
 
 //require our user models
 require('./models/user');
+require('./models/widget');
 
 var express = require('express');
 var path = require('path');
@@ -22,6 +23,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var home = require('./routes/home');
+var widgets = require('./routes/widgets');
 var comparePassword = Promise.promisify(require('bcrypt').compare);
 var app = express();
 
@@ -82,6 +84,7 @@ passport.deserializeUser(function(user, done) {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/home', home);
+app.use('/widgets', widgets);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
